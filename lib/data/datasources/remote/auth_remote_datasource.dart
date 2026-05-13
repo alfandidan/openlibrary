@@ -1,8 +1,8 @@
-import 'package:supabase_flutter/supabase_flutter.dart' hide AuthException;
-import '../../../core/constants/api_endpoints.dart';
-import '../../../core/errors/exceptions.dart';
-import '../../../core/network/supabase_config.dart';
-import '../../models/user_model.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../core/constants/api_endpoints.dart';
+import '../../core/errors/exceptions.dart';
+import '../../core/network/supabase_config.dart';
+import '../models/user_model.dart';
 
 abstract class AuthRemoteDataSource {
   Future<UserModel> register({
@@ -97,7 +97,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           .single();
 
       return UserModel.fromJson(userData);
-    } on AuthException catch (e) {
+    } on AuthException {
       throw AuthException(message: 'Email atau password salah', code: 'invalid_credentials');
     } catch (e) {
       throw ServerException(message: e.toString());
